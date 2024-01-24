@@ -1,0 +1,36 @@
+{
+    "name": "parcel-transformer-mdx",
+    "version": "0.3.0",
+    "license": "LGPL-3.0-or-later",
+    "author": "shiy2008@gmail.com",
+    "type": "module",
+    "main": "index.js",
+    "dependencies": {
+        "@mapbox/rehype-prism": "^0.9.0",
+        "@mdx-js/mdx": "^3.0.0",
+        "@parcel/plugin": "^2.11.0",
+        "@remark-embedder/core": "^3.0.2",
+        "@remark-embedder/transformer-oembed": "^3.0.0",
+        "remark-frontmatter": "^5.0.0",
+        "remark-gfm": "^4.0.0",
+        "types-tsconfig": "^2.0.2"
+    },
+    "devDependencies": {
+        "husky": "^8.0.3",
+        "lint-staged": "^15.2.0",
+        "prettier": "^3.2.4"
+    },
+    "prettier": {
+        "singleQuote": true,
+        "trailingComma": "none",
+        "arrowParens": "avoid",
+        "tabWidth": 4
+    },
+    "lint-staged": {
+        "*.{md,json,yml,js}": "prettier --write"
+    },
+    "scripts": {
+        "prepare": "husky install",
+        "test": "lint-staged"
+    }
+}
