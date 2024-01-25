@@ -1,10 +1,23 @@
 {
     "name": "parcel-transformer-mdx",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "license": "LGPL-3.0-or-later",
     "author": "shiy2008@gmail.com",
+    "description": "Unofficial MDX 3 transformer plugin for Parcel 2",
+    "keywords": [
+        "parcel",
+        "bundler",
+        "plugin",
+        "markdown",
+        "jsx",
+        "mdx",
+        "transformer"
+    ],
     "type": "module",
     "main": "index.js",
+    "engines": {
+        "parcel": "^2"
+    },
     "dependencies": {
         "@mapbox/rehype-prism": "^0.9.0",
         "@mdx-js/mdx": "^3.0.0",
@@ -13,12 +26,13 @@
         "@remark-embedder/transformer-oembed": "^3.0.0",
         "remark-frontmatter": "^5.0.0",
         "remark-gfm": "^4.0.0",
-        "types-tsconfig": "^2.0.2"
+        "remark-mdx-frontmatter": "^4.0.0"
     },
     "devDependencies": {
-        "husky": "^8.0.3",
+        "husky": "^9.0.3",
         "lint-staged": "^15.2.0",
-        "prettier": "^3.2.4"
+        "prettier": "^3.2.4",
+        "types-tsconfig": "^2.0.2"
     },
     "prettier": {
         "singleQuote": true,
@@ -30,7 +44,7 @@
         "*.{md,json,yml,js}": "prettier --write"
     },
     "scripts": {
-        "prepare": "husky install",
+        "prepare": "husky",
         "test": "lint-staged"
     }
 }

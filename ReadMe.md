@@ -2,6 +2,16 @@
 
 Unofficial [MDX][1] 3 [transformer plugin][2] for [Parcel][3] 2
 
+[![NPM Dependency](https://img.shields.io/librariesio/github/EasyWebApp/Parcel-transformer-MDX.svg)][4]
+[![CI & CD](https://github.com/EasyWebApp/Parcel-transformer-MDX/actions/workflows/main.yml/badge.svg)][5]
+
+## Supported features
+
+1. [GitHub flavored Markdown (GFM)](https://github.com/remarkjs/remark-gfm)
+2. [Frontmatter](https://github.com/remarkjs/remark-frontmatter)
+3. [Syntax highlighting](https://github.com/mapbox/rehype-prism)
+4. [Embed](https://github.com/remark-embedder/core)
+
 ## React usage
 
 ### Installation
@@ -83,6 +93,12 @@ https://www.youtube.com/watch?v=VEoMT8pAxMA
 
 -   WebCell example: https://github.com/EasyWebApp/BootCell-document
 
+## Inspiration
+
+https://github.com/parcel-bundler/parcel/pull/7922
+
 [1]: https://mdxjs.com/
 [2]: https://parceljs.org/plugin-system/transformer/
 [3]: https://parceljs.org/
+[4]: https://libraries.io/npm/parcel-transformer-mdx
+[5]: https://github.com/EasyWebApp/Parcel-transformer-MDX/actions/workflows/main.yml

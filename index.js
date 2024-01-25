@@ -5,6 +5,7 @@ import RehypePrism from '@mapbox/rehype-prism';
 import remarkEmbedder from '@remark-embedder/core';
 import oembedTransformer from '@remark-embedder/transformer-oembed';
 import RemarkFrontmatter from 'remark-frontmatter';
+import RemarkMdxFrontmatter from 'remark-mdx-frontmatter';
 
 const RemarkEmbedder = remarkEmbedder['default'],
     OembedTransformer = oembedTransformer['default'];
@@ -29,7 +30,8 @@ export default new Transformer({
             remarkPlugins: [
                 RemarkGFM,
                 [RemarkEmbedder, { transformers: [OembedTransformer] }],
-                RemarkFrontmatter
+                RemarkFrontmatter,
+                RemarkMdxFrontmatter
             ],
             rehypePlugins: [RehypePrism]
         });
