@@ -10,23 +10,41 @@ import RemarkMdxFrontmatter from 'remark-mdx-frontmatter';
 const RemarkEmbedder = remarkEmbedder['default'],
     OembedTransformer = oembedTransformer['default'];
 
+const ConfigExtensions = ['json', 'js', 'cjs', 'mjs', 'cts'];
+
+const BabelConfigFiles = [
+    ...ConfigExtensions.map(extension => `babel.config.${extension}`),
+    ...ConfigExtensions.map(extension => `.babelrc.${extension}`),
+    '.babelrc'
+];
+
 export default new Transformer({
     async loadConfig({ config }) {
-        const { contents } = await config.getConfig(['tsconfig.json']);
-
+        const { contents } = await config.getConfig(
+            ['tsconfig.json', 'jsconfig.json', ...BabelConfigFiles],
+            { packageKey: 'babel' }
+        );
         return contents;
     },
     async transform({ asset, config }) {
         /**
          * @type {import('types-tsconfig').TSConfigJSON['compilerOptions']}
          */
-        const { jsx, jsxImportSource } = config.compilerOptions;
-
+        const { jsx, jsxImportSource, jsxFactory, jsxFragmentFactory } =
+            config.compilerOptions || {};
+        const [_, { runtime, importSource, pragma, pragmaFrag } = {}] =
+            config.presets?.find(
+                preset =>
+                    preset instanceof Array &&
+                    preset[0] === '@babel/preset-react'
+            ) || [];
         const source = await asset.getCode();
 
         const vFile = await compile(source, {
-            jsxRuntime: jsx === 'react' ? 'classic' : 'automatic',
-            jsxImportSource,
+            jsxRuntime: runtime || (jsx === 'react' ? 'classic' : 'automatic'),
+            jsxImportSource: jsxImportSource || importSource,
+            pragma: pragma || jsxFactory,
+            pragmaFrag: pragmaFrag || jsxFragmentFactory,
             remarkPlugins: [
                 RemarkGFM,
                 [RemarkEmbedder, { transformers: [OembedTransformer] }],
