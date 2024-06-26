@@ -11,7 +11,9 @@ const RemarkEmbedder = remarkEmbedder['default'],
     OembedTransformer = oembedTransformer['default'];
 
 const ConfigExtensions = ['json', 'js', 'cjs', 'mjs', 'cts'];
-
+/**
+ * @see {@link https://babeljs.io/docs/config-files#configuration-file-types}
+ */
 const BabelConfigFiles = [
     ...ConfigExtensions.map(extension => `babel.config.${extension}`),
     ...ConfigExtensions.map(extension => `.babelrc.${extension}`),
@@ -32,6 +34,9 @@ export default new Transformer({
          */
         const { jsx, jsxImportSource, jsxFactory, jsxFragmentFactory } =
             config.compilerOptions || {};
+        /**
+         * @see {@link https://babeljs.io/docs/babel-preset-react#with-a-configuration-file-recommended}
+         */
         const [_, { runtime, importSource, pragma, pragmaFrag } = {}] =
             config.presets?.find(
                 preset =>

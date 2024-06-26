@@ -1,6 +1,6 @@
 {
     "name": "parcel-transformer-mdx",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "license": "LGPL-3.0-or-later",
     "author": "shiy2008@gmail.com",
     "description": "Unofficial MDX 3 transformer plugin for Parcel 2",
@@ -13,6 +13,14 @@
         "mdx",
         "transformer"
     ],
+    "homepage": "https://github.com/EasyWebApp/Parcel-transformer-MDX#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/EasyWebApp/Parcel-transformer-MDX.git"
+    },
+    "bugs": {
+        "url": "https://github.com/EasyWebApp/Parcel-transformer-MDX/issues"
+    },
     "type": "module",
     "main": "index.js",
     "engines": {
@@ -20,19 +28,19 @@
     },
     "dependencies": {
         "@mapbox/rehype-prism": "^0.9.0",
-        "@mdx-js/mdx": "^3.0.0",
-        "@parcel/plugin": "^2.11.0",
-        "@remark-embedder/core": "^3.0.2",
+        "@mdx-js/mdx": "^3",
+        "@parcel/plugin": "^2",
+        "@remark-embedder/core": "^3.0.3",
         "@remark-embedder/transformer-oembed": "^3.0.0",
         "remark-frontmatter": "^5.0.0",
         "remark-gfm": "^4.0.0",
         "remark-mdx-frontmatter": "^4.0.0"
     },
     "devDependencies": {
-        "husky": "^9.0.10",
-        "lint-staged": "^15.2.2",
-        "prettier": "^3.2.5",
-        "types-tsconfig": "^2.0.2"
+        "husky": "^9.0.11",
+        "lint-staged": "^15.2.7",
+        "prettier": "^3.3.2",
+        "types-tsconfig": "^2.1.1"
     },
     "prettier": {
         "singleQuote": true,
