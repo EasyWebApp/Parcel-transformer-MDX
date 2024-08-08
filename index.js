@@ -1,63 +1,58 @@
 import { Transformer } from '@parcel/plugin';
 import { compile } from '@mdx-js/mdx';
-import RemarkGFM from 'remark-gfm';
-import RehypePrism from '@mapbox/rehype-prism';
-import remarkEmbedder from '@remark-embedder/core';
-import oembedTransformer from '@remark-embedder/transformer-oembed';
-import RemarkFrontmatter from 'remark-frontmatter';
-import RemarkMdxFrontmatter from 'remark-mdx-frontmatter';
 
-const RemarkEmbedder = remarkEmbedder['default'],
-    OembedTransformer = oembedTransformer['default'];
+import MDXPreset from './source/preset';
+import { BabelConfigFiles, MDXConfigFiles } from './source/utility';
 
-const ConfigExtensions = ['json', 'js', 'cjs', 'mjs', 'cts'];
-/**
- * @see {@link https://babeljs.io/docs/config-files#configuration-file-types}
- */
-const BabelConfigFiles = [
-    ...ConfigExtensions.map(extension => `babel.config.${extension}`),
-    ...ConfigExtensions.map(extension => `.babelrc.${extension}`),
-    '.babelrc'
-];
+export { MDXPreset };
+export * from './source/utility';
 
 export default new Transformer({
+    /**
+     * @returns {Promise<import('@mdx-js/mdx').CompileOptions>}
+     */
     async loadConfig({ config }) {
-        const { contents } = await config.getConfig(
-            ['tsconfig.json', 'jsconfig.json', ...BabelConfigFiles],
-            { packageKey: 'babel' }
-        );
-        return contents;
-    },
-    async transform({ asset, config }) {
+        const [
+            { contents: TSConfig },
+            { contents: BabelConfig },
+            { contents: MDXConfig }
+        ] = await Promise.all([
+            config.getConfig(['tsconfig.json', 'jsconfig.json']),
+            config.getConfig(BabelConfigFiles, { packageKey: 'babel' }),
+            config.getConfig(MDXConfigFiles, { packageKey: 'mdx' })
+        ]);
         /**
          * @type {import('types-tsconfig').TSConfigJSON['compilerOptions']}
          */
         const { jsx, jsxImportSource, jsxFactory, jsxFragmentFactory } =
-            config.compilerOptions || {};
+            TSConfig?.compilerOptions || {};
         /**
          * @see {@link https://babeljs.io/docs/babel-preset-react#with-a-configuration-file-recommended}
          */
-        const [_, { runtime, importSource, pragma, pragmaFrag } = {}] =
-            config.presets?.find(
+        const [_, ReactPreset = {}] =
+            BabelConfig?.presets?.find(
                 preset =>
                     preset instanceof Array &&
                     preset[0] === '@babel/preset-react'
             ) || [];
-        const source = await asset.getCode();
+        /**
+         * @type {import('./source/utility').BabelReactPreset}
+         */
+        const { runtime, importSource, pragma, pragmaFrag } = ReactPreset;
 
-        const vFile = await compile(source, {
+        return {
             jsxRuntime: runtime || (jsx === 'react' ? 'classic' : 'automatic'),
             jsxImportSource: jsxImportSource || importSource,
             pragma: pragma || jsxFactory,
             pragmaFrag: pragmaFrag || jsxFragmentFactory,
-            remarkPlugins: [
-                RemarkGFM,
-                [RemarkEmbedder, { transformers: [OembedTransformer] }],
-                RemarkFrontmatter,
-                RemarkMdxFrontmatter
-            ],
-            rehypePlugins: [RehypePrism]
-        });
+            ...MDXPreset,
+            ...MDXConfig
+        };
+    },
+    async transform({ asset, config }) {
+        const source = await asset.getCode();
+
+        const vFile = await compile(source, config);
         asset.type = 'jsx';
         asset.setCode(vFile + '');
 

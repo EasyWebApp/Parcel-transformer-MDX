@@ -45,6 +45,9 @@ importers:
       types-tsconfig:
         specifier: ^2.1.1
         version: 2.1.1
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
 
 packages:
 
@@ -1392,6 +1395,11 @@ packages:
     resolution: {integrity: sha512-ermKWxVKVtnZDLoL1UicnYbu9/Z79TX4lskTHPCy3t32XcVkNOCVdeT9WicpZzgovBeBOMXUVtLYLNLgc59ymg==}
     engines: {node: ^14.13.1 || >=16.0.0}
 
+  typescript@5.5.4:
+    resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   undici-types@6.13.0:
     resolution: {integrity: sha512-xtFJHudx8S2DSoujjMd1WeWvn7KKWFRESZTMeL1RptAYERu29D6jphMjjY+vn96jvN3kVPDNxU/E13VTaXj6jg==}
 
@@ -1757,8 +1765,6 @@ snapshots:
       '@parcel/types': 2.12.0
       '@parcel/utils': 2.12.0
       nullthrows: 1.1.1
-    transitivePeerDependencies:
-      - '@swc/helpers'
 
   '@remark-embedder/core@3.0.3':
     dependencies:
@@ -3234,6 +3240,8 @@ snapshots:
     dependencies:
       type-fest: 4.23.0
       zod: 3.23.8
+
+  typescript@5.5.4: {}
 
   undici-types@6.13.0: {}
 
