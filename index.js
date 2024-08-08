@@ -1,22 +1,18 @@
 import { Transformer } from '@parcel/plugin';
 import { compile } from '@mdx-js/mdx';
 
-import MDXPreset from './source/preset';
-import { BabelConfigFiles, MDXConfigFiles } from './source/utility';
+import MDXPreset from './source/preset.js';
+import { BabelConfigFiles, MDXConfigFiles } from './source/utility.js';
 
 export { MDXPreset };
-export * from './source/utility';
+export * from './source/utility.js';
 
 export default new Transformer({
     /**
      * @returns {Promise<import('@mdx-js/mdx').CompileOptions>}
      */
     async loadConfig({ config }) {
-        const [
-            { contents: TSConfig },
-            { contents: BabelConfig },
-            { contents: MDXConfig }
-        ] = await Promise.all([
+        const [TSConfig, BabelConfig, MDXConfig] = await Promise.all([
             config.getConfig(['tsconfig.json', 'jsconfig.json']),
             config.getConfig(BabelConfigFiles, { packageKey: 'babel' }),
             config.getConfig(MDXConfigFiles, { packageKey: 'mdx' })
@@ -25,12 +21,12 @@ export default new Transformer({
          * @type {import('types-tsconfig').TSConfigJSON['compilerOptions']}
          */
         const { jsx, jsxImportSource, jsxFactory, jsxFragmentFactory } =
-            TSConfig?.compilerOptions || {};
+            TSConfig?.contents.compilerOptions || {};
         /**
          * @see {@link https://babeljs.io/docs/babel-preset-react#with-a-configuration-file-recommended}
          */
         const [_, ReactPreset = {}] =
-            BabelConfig?.presets?.find(
+            BabelConfig?.contents.presets?.find(
                 preset =>
                     preset instanceof Array &&
                     preset[0] === '@babel/preset-react'
@@ -46,7 +42,7 @@ export default new Transformer({
             pragma: pragma || jsxFactory,
             pragmaFrag: pragmaFrag || jsxFragmentFactory,
             ...MDXPreset,
-            ...MDXConfig
+            ...MDXConfig?.contents
         };
     },
     async transform({ asset, config }) {

@@ -7,7 +7,7 @@ Unofficial [MDX][1] 3 [transformer plugin][2] for [Parcel][3] 2
 
 [![NPM](https://nodei.co/npm/parcel-transformer-mdx.png?downloads=true&downloadRank=true&stars=true)][6]
 
-## Supported features
+## Preset features
 
 1. [GitHub flavored Markdown (GFM)](https://github.com/remarkjs/remark-gfm)
 2. [Frontmatter](https://github.com/remarkjs/remark-frontmatter)
@@ -95,6 +95,10 @@ https://www.youtube.com/watch?v=VEoMT8pAxMA
 
 -   WebCell example: https://github.com/EasyWebApp/BootCell-document
 
+## Custom Configuration
+
+Create a `mdx.config.js` file in the root folder of your project, and export your [`CompileOptions` object][7] as what [the internal preset][8] does.
+
 ## Inspiration
 
 https://github.com/parcel-bundler/parcel/pull/7922
@@ -105,3 +109,5 @@ https://github.com/parcel-bundler/parcel/pull/7922
 [4]: https://libraries.io/npm/parcel-transformer-mdx
 [5]: https://github.com/EasyWebApp/Parcel-transformer-MDX/actions/workflows/main.yml
 [6]: https://nodei.co/npm/parcel-transformer-mdx/
+[7]: https://mdxjs.com/packages/mdx/#compileoptions
+[8]: source/preset.js
