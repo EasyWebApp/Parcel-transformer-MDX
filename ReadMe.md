@@ -5,6 +5,8 @@ Unofficial [MDX][1] 3 [transformer plugin][2] for [Parcel][3] 2
 [![NPM Dependency](https://img.shields.io/librariesio/github/EasyWebApp/Parcel-transformer-MDX.svg)][4]
 [![CI & CD](https://github.com/EasyWebApp/Parcel-transformer-MDX/actions/workflows/main.yml/badge.svg)][5]
 
+[![NPM](https://nodei.co/npm/parcel-transformer-mdx.png?downloads=true&downloadRank=true&stars=true)][6]
+
 ## Supported features
 
 1. [GitHub flavored Markdown (GFM)](https://github.com/remarkjs/remark-gfm)
@@ -102,3 +104,4 @@ https://github.com/parcel-bundler/parcel/pull/7922
 [3]: https://parceljs.org/
 [4]: https://libraries.io/npm/parcel-transformer-mdx
 [5]: https://github.com/EasyWebApp/Parcel-transformer-MDX/actions/workflows/main.yml
+[6]: https://nodei.co/npm/parcel-transformer-mdx/
